@@ -12,7 +12,7 @@
 #pragma platform(VEX2)
 
 // Select Download method as "competition"
-#pragma competitionControl(Competition)
+#pragma competitionControl(Competition)b
 
 //Main competition background code...do not modify!
 //If you see errors here ignore them, they work in the robotc compiler
