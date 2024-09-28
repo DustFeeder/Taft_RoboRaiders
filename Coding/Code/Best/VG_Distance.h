@@ -1,7 +1,7 @@
 //Header File for VG_IRTest.c
 
 float holeArc = 360 / holeCount;
-float holeArcLength = holeArc * wheelDiameter * PI / 180;
+float holeArcLength = holeArc * wheelDiameter * PI / 360;
 bool hole = false;
 
 float distCalc(float distance) {
