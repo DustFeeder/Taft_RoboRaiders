@@ -14,11 +14,13 @@ float distCalc(float distance) {
 	return distance;
 }
 
-void distDrive(float distance, int speed) {
-	int holes = distance / holeArcLength;
-	for (int i = 0; i < holes; i++) {
-		setMultipleMotors(speed, Ldrive, Rdrive);
-		waitUntil(SensorValue[wheelEncoder] > 200);
+void distDrive(bool button, float distance, int speed) {
+	if (true == button) {
+		int holes = distance / holeArcLength;
+		for (int i = 0; i < holes; i++) {
+			setMultipleMotors(speed, Ldrive, Rdrive);
+			waitUntil(SensorValue[wheelEncoder] > 200);
+		}
+		stopAllMotors();
 	}
-	stopAllMotors();
 }

@@ -3,7 +3,9 @@
 #pragma config(Motor,  port9,  Rdrive,        tmotorServoContinuousRotation, openLoop, driveRight)
 
 int holeCount = 16;
-float wheelDiameter = 8 + 5/16;
+float wheelDiameter = 6 + 7/8;
+
+float distanceTraveled = 0;
 float IRSensor = 0;
 
 #include "VG_Distance.h"
@@ -11,10 +13,9 @@ float IRSensor = 0;
 task main() {
 	while(true) {
 		arcadeControl(vexRT[Ch3], vexRT[Ch4], 10);
-		float distanceTraveled = distCalc(distanceTraveled);
+		distanceTraveled = distCalc(distanceTraveled);
 		IRSensor = wheelEncoder;
-		if (vexRT[Btn5D]) {
-			distDrive(120, 50);
-		}
+		distDrive(vexRT[Bnt5D], 120, 50);
+		
 	}
 }
