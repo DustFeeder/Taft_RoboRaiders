@@ -1,25 +1,25 @@
 //Header File for VG_IRTest.c
 
-float holeArc = 360 / holeCount;
-float holeArcLength = holeArc * wheelDiameter * PI / 360;
-bool hole = false;
+float segmentArc = 360 / wheelSegments;
+float segmentArcLength = segmentArc * wheelDiameter * PI / 360;
+bool segment = false;
 
 float distCalc(float distance) {
-	if (SensorValue[wheelEncoder] < 200 && false == hole) {
-		distance += holeArcLength;
-		hole = true;
-	} else if (SensorValue[wheelEncoder] > 200) {
-		hole = false;
+	if (SensorValue[IR] < 200 && false == segment) {
+		distance += segmentArcLength;
+		segment = true;
+	} else if (SensorValue[IR] > 200) {
+		segment = false;
 	}
 	return distance;
 }
 
-void distDrive(bool button, float distance, int speed) {
+void distDrive(bool button, float totalDistance, int speed) {
 	if (true == button) {
-		int holes = distance / holeArcLength;
-		for (int i = 0; i < holes; i++) {
-			setMultipleMotors(speed, Ldrive, Rdrive);
-			waitUntil(SensorValue[wheelEncoder] > 200);
+		int distanceGone = 0;
+		while (distanceGone < totalDistance) {
+			setMultipleMotors(speed, LDrive, RDrive);
+			distanceGone = distCalc(distanceGone);
 		}
 		stopAllMotors();
 	}
