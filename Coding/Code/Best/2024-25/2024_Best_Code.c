@@ -102,14 +102,19 @@ void elevatorControl(float speed, bool up, bool down){
 	}
 }
 
-void clawControl(bool operate, float open, float close){
-	if (operate){
+void clawControl(bool button, float open, float close){
+	if (button){
 		if (clawOpen == false){
 			setMultipleMotors(open, core1, core2);
 		} else {
 			setMultipleMotors(close, core1, core2);
 		}
 	}
+}
+
+void customArcade(float leftmotor, float rightmotor, float forward, float turn) {
+	setMotor(leftmotor, forward - turn);
+	setMotor(rightmotor, forward + turn);
 }
 
 task usercontrol()
@@ -122,8 +127,7 @@ task usercontrol()
 		// Each time through the loop your program should update motor + servo
 		// values based on feedback from the joysticks.
 
-		setMotor(LDrive, vexRT[Ch3] - vexRT[Ch4]);
-		setMotor(RDrive, vexRT[Ch3] + vexRT[Ch4]);
+		customArcade(LDrive, RDrive, vexRT[Ch3], vexRT[Ch4]);
 
 		//This code uses the elevator
 		elevatorControl(127, vexRT[Btn6U], vexRT[Btn6D]);

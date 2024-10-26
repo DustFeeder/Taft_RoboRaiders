@@ -6,7 +6,7 @@ float motionCalculation(float distance, float encoder, bool turning) {
 	if (SensorValue[encoder] < 200 && false == segment) {
 		distance += segmentDistance;
 		segment = true;
-		} else if (SensorValue[encoder] > 200) {
+	} else if (SensorValue[encoder] > 200) {
 		segment = false;
 	}
 	return distance;
@@ -29,7 +29,7 @@ float driveControl(bool turning, float encoder, float motor, int speed, float ta
 	return distanceGone;
 }
 
-void autoDrive2(bool turning, int speed, float target) {
+void autoDrive2(bool turning, float speed, float target) {
 	float distanceL = 0;
 	float distanceR = 0;
 	float targetL = target;
@@ -37,8 +37,10 @@ void autoDrive2(bool turning, int speed, float target) {
 	if (turning) {
 		targetR = -target;
 	}
-	while (distanceL < targetL || distanceR < targetR) {
+	while ((distanceL < targetL) || (distanceR < targetR)) {
 		distanceL = driveControl(turning, IRL, LDrive, speed, targetL, distanceL);
 		distanceR = driveControl(turning, IRR, RDrive, speed, targetR, distanceR);
 	}
 }
+
+void driveForward ()
