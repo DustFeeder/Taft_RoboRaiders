@@ -1,3 +1,4 @@
+//code used to calculate how much a wheel has turned
 float motionCalculation(float distance, float encoder, bool turning) {
 	int segmentDistance = segmentArcLength;
 	if (turning) {
@@ -6,7 +7,7 @@ float motionCalculation(float distance, float encoder, bool turning) {
 	if (SensorValue[encoder] < 200 && false == segment) {
 		distance += segmentDistance;
 		segment = true;
-	} else if (SensorValue[encoder] > 200) {
+		} else if (SensorValue[encoder] > 200) {
 		segment = false;
 	}
 	return distance;
@@ -20,14 +21,15 @@ float autoDrive(bool turning, float encoder, float motor, int speed, float dista
 }
 
 float driveControl(bool turning, float encoder, float motor, int speed, float target, float distanceGone) {
+	distanceGone = motionCalculation(distanceGone, encoder, turning);
 	if (distanceGone < target) {
 		setMotor(motor, speed);
-	} else {
+		} else {
 		stopMotor(motor);
 	}
-	distanceGone = motionCalculation(distanceGone, encoder, turning);
 	return distanceGone;
 }
+
 
 void autoDrive2(bool turning, float speed, float target) {
 	float distanceL = 0;
@@ -37,10 +39,18 @@ void autoDrive2(bool turning, float speed, float target) {
 	if (turning) {
 		targetR = -target;
 	}
+
 	while ((distanceL < targetL) || (distanceR < targetR)) {
 		distanceL = driveControl(turning, IRL, LDrive, speed, targetL, distanceL);
 		distanceR = driveControl(turning, IRR, RDrive, speed, targetR, distanceR);
 	}
 }
 
-void driveForward ()
+void driveForward () {
+	float distance = 0;
+	while (distance < 480) {
+		setMultipleMotors(30, LDrive, RDrive);
+		distance = motionCalculation(distance, IRR, 0);
+	}
+	setMultipleMotors(0, LDrive, RDrive);
+}
