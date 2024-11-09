@@ -1,3 +1,5 @@
 .DS_Store
 *.DS_Store
 Coding/Code/Best/.DS_Store
+#Remove this later, the line just below this for First is only for best, REMOVE IT
+Coding/Code/First/**
