@@ -31,18 +31,16 @@ void motorPosControl(float motor, bool up, bool down) {
 
 void servoControl(float motor, bool up, bool down){
 	if (up){
-		setMotor(motor, 127);
+		setMotor(motor, 90);
 	}
 	if (down){
-		setMotor(motor, -127);
+		setMotor(motor, -90);
 	}
 }
 
 task main(){
 	while (true){
 		customArcade(vexRT[Btn8D]);		//move wheels using joysticks
-
-		motorPosControl(arm, vexRT[Btn5U], vexRT[Btn5D]);		//move arm using buttons
 
 		//servoControl(armGrip, vexRT[Btn8U], vexRT[Btn8D]);	//move arm grabber using buttons
 
@@ -53,5 +51,7 @@ task main(){
 		servoControl(topHabitat, vexRT[Btn7U], vexRT[Btn7D]);
 
 		servoControl(bottomHabitat, vexRT[Btn7U], vexRT[Btn7D]);
+
+		motorPosControl(arm, vexRT[Btn5U], vexRT[Btn5D]);		//move arm using buttons
 	}
 }
