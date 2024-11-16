@@ -11,10 +11,10 @@ bool driveArcade = true;
 void customArcade(bool toggle){
 	if (toggle && changeDrive) {
 		driveArcade = !driveArcade;
-		changeDrive = !changeDrive;
+		changeDrive = false;
 	}
 	if (!toggle && !changeDrive) {
-		changeDrive = !changeDrive;
+		changeDrive = true;
 	}
 	if (driveArcade) {
 		setMotor(lDrive, vexRT[Ch3] + vexRT[Ch4]);
